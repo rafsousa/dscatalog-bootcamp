@@ -15,8 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
@@ -28,7 +26,7 @@ public class Product implements Serializable {
 	private Long id;
 	private String name;
 	
-	@Column(columnDefinition = "TEXT") // Anotation para aceitar texto longo
+	@Column(columnDefinition = "TEXT")
 	private String description;
 	private Double price;
 	private String imgUrl;
