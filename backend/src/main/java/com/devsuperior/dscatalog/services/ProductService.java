@@ -31,11 +31,11 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true) // O framework garante a transacao com o BD e nao loca o registro
-	public Page<ProductDTO> findAllPaged(Long categoryId, PageRequest pageRequest) {
+	public Page<ProductDTO> findAllPaged(Long categoryId, String name, PageRequest pageRequest) {
 		
 		Category category = (categoryId == 0) ? null : categoryRepository.getOne(categoryId);
 		
-		Page<Product> list = repository.find(category, pageRequest);
+		Page<Product> list = repository.find(category, name, pageRequest);
 		
 		return list.map(x -> new ProductDTO(x));
 		
