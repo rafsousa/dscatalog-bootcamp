@@ -1,4 +1,4 @@
-import { makeRequest } from 'core/utils/request';
+import { makePrivateRequest } from 'core/utils/request';
 import React, { useState } from 'react';
 import BaseForm from '../../BaseForm';
 import './styles.scss';
@@ -31,13 +31,13 @@ const Form = () => {
         event.preventDefault();
         const payload = {
             ...formData,
-            imgUrl: 'https://cdn.awsli.com.br/1417/1417526/produto/56080336/a735f03b76.jpg',
-            categories: [{id: formData.category}]
+            imgUrl: 'https://static.netshoes.com.br/produtos/tenis-mizuno-wave-hawk-2-masculino/46/D16-4274-246/D16-4274-246_zoom1.jpg',
+            categories: [{ id: formData.category }]
         }
 
-        makeRequest( {url: '/products', method: 'POST', data: payload}) 
+        makePrivateRequest({ url: '/products', method: 'POST', data: payload }) 
             .then(() => {
-                setFormData({name:'', category:'', price: '', description: ''});
+                setFormData({ name: '', category: '', price: '', description: ''});
             });
     }
 
