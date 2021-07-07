@@ -22,6 +22,7 @@ axios.interceptors.response.use(function (response) {
     return response;
 
 }, function (error) {
+    console.log("ERRO: ", error)
     if (error.response.status == 401) {
         logout();
     }
