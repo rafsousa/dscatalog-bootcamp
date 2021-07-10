@@ -14,19 +14,23 @@ const List = () => {
     const [activePage, setActivePage] = useState(0);
     const history = useHistory();
 
+//    console.log(productsResponse);
+
     // quando o componente iniciar, buscar a lista de produtos
     useEffect(() => {
 
         const params = {
             page: activePage,
-            linesPerPage: 4
+            linesPerPage: 4,
+            direction : 'DESC',
+            orderBy: 'id'
         }
 
         // iniciar o loader
         setIsLoading(true);
 
         // Ao inves do fetch a melhor opcao e usar o axios
-        makeRequest({url: '/products', params})
+        makeRequest({ url: '/products', params })
         .then(response => setProductsResponse(response.data))
         .finally(() => {
             // finalizar o loader
@@ -52,8 +56,8 @@ const List = () => {
                         totalPages={productsResponse?.totalPages} 
                         activePage={activePage}
                         onChange={page => setActivePage(page)}
-                />
-            )}
+                    />
+                )}
             </div>
         </div>
     )
