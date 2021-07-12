@@ -1,9 +1,10 @@
 import { ProductsResponse } from 'core/types/Product';
-import { makeRequest } from 'core/utils/request';
-import React, { useEffect, useState } from 'react';
+import { makePrivateRequest, makeRequest } from 'core/utils/request';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import Card from '../Card';
 import Pagination from 'core/components/Pagination';
+import { toast } from 'react-toastify';
 
 const List = () => {
     // quando a lista de produtos estiver disponível
@@ -14,11 +15,8 @@ const List = () => {
     const [activePage, setActivePage] = useState(0);
     const history = useHistory();
 
-//    console.log(productsResponse);
-
-    // quando o componente iniciar, buscar a lista de produtos
-    useEffect(() => {
-
+    // o userCallback memoriza o componente
+    const getProducts = useCallback(() => {
         const params = {
             page: activePage,
             linesPerPage: 4,
@@ -38,10 +36,32 @@ const List = () => {
         })
     }, [activePage]);
 
+    // quando o componente iniciar, buscar a lista de produtos
+    useEffect(() => {
+        getProducts();
+    }, [getProducts]);
+
     const handleCreate = () => {
         history.push('/admin/products/create');
     }
     
+    const onRemove = (productId: number) => {
+        const confirm = window.confirm("Deseja excluir o produto ?");
+
+        if (confirm) {
+            makePrivateRequest({ url: `/products/${productId}`, method: 'DELETE' })
+                .then(() => {
+                    toast.info('Produto excluido com sucesso!')
+                    getProducts();
+                    // Redireciona para a listagem de produtos
+                    // history.push('/admin/products');
+                })
+                .catch(() => {
+                    toast.error('Erro ao excluir produto!');
+                })
+        }
+    }
+
     return (
         <div className="admin-products-list">
             <button className="btn btn-primary btn-lg" onClick={handleCreate}>
@@ -49,7 +69,7 @@ const List = () => {
             </button>
             <div className="admin-list-container">
                 {productsResponse?.content.map(product => (
-                    <Card product={product} key={product.id} />
+                    <Card product={product} key={product.id} onRemove={onRemove} />
                 ))}
                 {productsResponse && (
                     <Pagination

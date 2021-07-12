@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import './styles.scss';
+import logo from 'core/assets/images/VULCA.png';
+
 
 const Navbar = () => {
     const [currentUser, setCurrentUser] = useState('');
@@ -23,7 +25,7 @@ const Navbar = () => {
         <nav className="row bg-primary main-nav">
             <div className="col-3">
                 <Link to="/" className="nav-logo-text">
-                    <h4>DS Catalog</h4>
+                    <img src={logo} alt="Vulcabras" />
                 </Link>
             </div>
             <div className="col-6">
