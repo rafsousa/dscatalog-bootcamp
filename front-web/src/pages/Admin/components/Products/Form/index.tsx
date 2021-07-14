@@ -8,8 +8,9 @@ import BaseForm from '../../BaseForm';
 import './styles.scss';
 import { useState } from 'react';
 import { Category } from 'core/types/Product';
+import PriceField from './PriceField';
 
-type FormState = {
+export type FormState = {
     name: string;
     price: string;
     description: string;
@@ -123,15 +124,7 @@ const Form = () => {
 
                         </div>
                         <div className="margin-bottom-30">
-                            <input 
-                                {...register('price', {
-                                    required: "Campo obrigatório"
-                                })}
-                                name="price"
-                                type="number" 
-                                className="form-control input-base" 
-                                placeholder="Preço"
-                            />
+                            <PriceField control={control} />
                             {errors.price && (
                                 <div className="invalid-feedback d-block">
                                     {errors.price.message}
