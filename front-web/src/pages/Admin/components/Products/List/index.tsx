@@ -1,4 +1,4 @@
-import { ProductsResponse } from 'core/types/Product';
+import { Category, ProductsResponse } from 'core/types/Product';
 import { makePrivateRequest, makeRequest } from 'core/utils/request';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -6,6 +6,7 @@ import Card from '../Card';
 import Pagination from 'core/components/Pagination';
 import { toast } from 'react-toastify';
 import CardLoader from '../Loaders/ProductCardLoader';
+import ProductFilters from 'core/components/ProductFilters';
 
 const List = () => {
     // quando a lista de produtos estiver disponível
@@ -15,6 +16,8 @@ const List = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [activePage, setActivePage] = useState(0);
     const history = useHistory();
+    const [name, setName] = useState('');
+    const [category, setCategory] = useState<Category>();
 
     // o userCallback memoriza o componente
     const getProducts = useCallback(() => {
@@ -22,7 +25,9 @@ const List = () => {
             page: activePage,
             linesPerPage: 4,
             direction : 'DESC',
-            orderBy: 'id'
+            orderBy: 'id',
+            name,
+            categoryId: category?.id
         }
 
         // iniciar o loader
@@ -35,12 +40,28 @@ const List = () => {
             // finalizar o loader
             setIsLoading(false);
         })
-    }, [activePage]);
+    }, [activePage, name, category]);
 
     // quando o componente iniciar, buscar a lista de produtos
     useEffect(() => {
         getProducts();
     }, [getProducts]);
+
+    const handleChangeName = (name: string) => {
+        setActivePage(0);
+        setName(name);
+    }
+
+    const handleChangeCategory = (category: Category) => {
+        setActivePage(0);
+        setCategory(category);
+    }
+
+    const clearFilters = () => {
+        setActivePage(0);
+        setCategory(undefined);
+        setName('');
+     }
 
     const handleCreate = () => {
         history.push('/admin/products/create');
@@ -65,9 +86,18 @@ const List = () => {
 
     return (
         <div className="admin-products-list">
-            <button className="btn btn-primary btn-lg" onClick={handleCreate}>
-                ADICIONAR
-            </button>
+            <div className="d-flex justify-content-between">
+                <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+                    ADICIONAR
+                </button>
+                <ProductFilters 
+                    name={name}
+                    category={category}
+                    handleChangeCategory={handleChangeCategory}
+                    handleChangeName={handleChangeName}
+                    clearFilters={clearFilters}
+                />
+            </div>
             <div className="admin-list-container">
                 {isLoading ? <CardLoader /> :(
                     productsResponse?.content.map(product => (
