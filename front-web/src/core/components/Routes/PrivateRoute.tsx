@@ -35,7 +35,3 @@ const PrivateRoute = ({ children, path, allowedRoutes }: Props) => {
   }
 
   export default PrivateRoute;
-
-function allowedRoutes(allowedRoutes: any) {
-  throw new Error("Function not implemented.");
-}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './components/ProductCard';
-import axios from "axios";
 import './styles.scss'
 import { makeRequest } from '../../core/utils/request';
 import { Category, ProductsResponse } from '../../core/types/Product';
