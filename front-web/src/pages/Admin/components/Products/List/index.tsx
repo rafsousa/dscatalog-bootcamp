@@ -7,6 +7,7 @@ import Pagination from 'core/components/Pagination';
 import { toast } from 'react-toastify';
 import CardLoader from '../Loaders/ProductCardLoader';
 import ProductFilters from 'core/components/ProductFilters';
+import './styles.scss'
 
 const List = () => {
     // quando a lista de produtos estiver disponível
@@ -83,13 +84,15 @@ const List = () => {
                 })
         }
     }
-
+   
     return (
         <div className="admin-products-list">
-            <div className="d-flex justify-content-between">
-                <button className="btn btn-primary btn-lg" onClick={handleCreate}>
-                    ADICIONAR
-                </button>
+            <div className="filter-admin-product">
+                <div className="button-add">
+                    <button className="btn btn-primary btn-lg" onClick={handleCreate}>
+                        ADICIONAR
+                    </button>
+                </div>
                 <ProductFilters 
                     name={name}
                     category={category}

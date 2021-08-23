@@ -30,37 +30,37 @@ const ProductDetails = () => {
     return (
         <div className="product-details-container">
             <div className="card-base border-radius-20 productDetails">
+                <div className="product-details-info">
                 <Link to='/products' className='product-details-goback'>
                     <ArrowIcon className="icon-goback" />
                     <h1 className='text-goback'>VOLTAR</h1>
                 </Link>
-                <div className="row">
-                    <div className="col-6 pr-5">
-                        {isLoading ? <h1><ProductInfoLoader /></h1> : (
-                            <>
-                            <div className="product-details-card text-center">
+                    {isLoading ? ( <ProductInfoLoader /> ) : (
+                        <>
+                            <div className="product-details-card">
                                 <img alt={product?.imgUrl} src={product?.imgUrl} className="product-details-image" />
                             </div>
-                            <h1 className="product-details-name">
-                                {product?.name}
-                            </h1>
-                            {product?.price && <ProductPrice price={product?.price}/> }
-                            </>
-                        )}
-                    </div>
-                    <div className="col-6 product-details-card">
-                        {isLoading ? <h1><ProductDescriptionLoader /></h1> : (
-                            <>
-                            <h1 className="product-description-title">
-                                Descrição do produto
-                            </h1>
-                            <p className="product-description-text">
-                                {product?.description}
-                            </p>
-                            </>
-                        )}
-                    </div>
+                            <div className="product-info-fields">
+                                <h1 className="product-details-name">
+                                    {product?.name}
+                                </h1>
+                                {product?.price && <ProductPrice price={product?.price}/> }
+                            </div>
+                        </>
+                    )}
                 </div>
+                <div className="product-details-card product-description">
+                        {isLoading ? <ProductDescriptionLoader /> : (
+                            <>
+                                <h1 className="product-description-title">
+                                    Descrição do produto
+                                </h1>
+                                <p className="product-description-text">
+                                    {product?.description}
+                                </p>
+                            </>
+                        )}
+                    </div>
             </div>
         </div>
 

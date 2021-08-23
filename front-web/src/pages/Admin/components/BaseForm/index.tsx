@@ -6,7 +6,7 @@ type Props = {
     title: String;
     children: React.ReactNode;
 }
-
+ 
 const BaseForm = ( {title, children}: Props ) => {
     const history = useHistory();
     const handleCancel = () => {

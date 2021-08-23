@@ -8,7 +8,7 @@ import ProductCardLoader from './components/Loaders/ProductCardLoader';
 import Pagination from 'core/components/Pagination';
 import ProductFilters from 'core/components/ProductFilters';
 import { useCallback } from 'react';
-
+ 
 const Catalog = () => {
     
     // quando a lista de produtos estiver disponível
@@ -54,7 +54,7 @@ const Catalog = () => {
         setActivePage(0);
         setCategory(category);
     }
-
+ 
     const clearFilters = () => {
         setActivePage(0);
         setCategory(undefined);
@@ -62,7 +62,7 @@ const Catalog = () => {
      }
     return (
         <div className="catalog-container">
-            <div className="d-flex justify-content-between">
+            <div className="filter-container">
                 <h1 className="catalog-title">
                     Catálogo de produtos
                 </h1>

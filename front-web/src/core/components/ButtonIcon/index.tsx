@@ -5,10 +5,10 @@ import './styles.scss';
 type Props = {
     text: string;
 }
-
+ 
 const ButtonIcon = ({text}: Props) => (
 
-    <div className="d-flex">
+    <div className="default-button">
         <button className='btn btn-primary btn-icon'>
             <h5>{text}</h5>
         </button>
